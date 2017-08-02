@@ -3,6 +3,7 @@ package com.pchmn.sample.materialchipsinput;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.widget.ImageView;
 
 import com.pchmn.materialchips.model.ChipInterface;
 
@@ -34,6 +35,9 @@ public class ContactChip implements ChipInterface {
     public Drawable getAvatarDrawable() {
         return null;
     }
+
+    @Override
+    public boolean setImageTo(ImageView imageView) { return false; }
 
     @Override
     public String getLabel() {

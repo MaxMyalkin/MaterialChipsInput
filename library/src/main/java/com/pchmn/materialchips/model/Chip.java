@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 public class Chip implements ChipInterface {
 
@@ -65,6 +66,9 @@ public class Chip implements ChipInterface {
     public Drawable getAvatarDrawable() {
         return avatarDrawable;
     }
+
+    @Override
+    public boolean setImageTo(ImageView imageView) { return false; }
 
     @Override
     public String getLabel() {
