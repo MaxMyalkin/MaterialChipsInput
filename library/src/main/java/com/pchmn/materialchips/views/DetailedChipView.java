@@ -183,6 +183,7 @@ public class DetailedChipView extends RelativeLayout {
         private ColorStateList textColor;
         private ColorStateList backgroundColor;
         private ColorStateList deleteIconColor;
+        private ChipInterface chip;
 
         public Builder(Context context) {
             this.context = context;
@@ -213,6 +214,7 @@ public class DetailedChipView extends RelativeLayout {
             this.avatarDrawable = chip.getAvatarDrawable();
             this.name = chip.getLabel();
             this.info = chip.getInfo();
+            this.chip = chip;
             return this;
         }
 
@@ -243,7 +245,7 @@ public class DetailedChipView extends RelativeLayout {
             detailedChipView.setAvatarIcon(builder.avatarUri);
         else if(builder.avatarDrawable != null)
             detailedChipView.setAvatarIcon(builder.avatarDrawable);
-        else
+        else if(builder.chip == null || !builder.chip.setImageTo(detailedChipView.mAvatarIconImageView))
             detailedChipView.setAvatarIcon(mLetterTileProvider.getLetterTile(builder.name));
 
         // background color
