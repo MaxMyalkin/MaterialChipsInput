@@ -60,7 +60,6 @@ public class ChipsInput extends ScrollViewMaxHeight {
     private ColorStateList mFilterableListTextColor;
     // chips listener
     private List<ChipsListener> mChipsListenerList = new ArrayList<>();
-    private ChipsListener mChipsListener;
     // chip list
     private List<? extends ChipInterface> mChipList;
     private FilterableListView mFilterableListView;
@@ -232,7 +231,10 @@ public class ChipsInput extends ScrollViewMaxHeight {
 
     public void addChipsListener(ChipsListener chipsListener) {
         mChipsListenerList.add(chipsListener);
-        mChipsListener = chipsListener;
+    }
+
+    public void removeChipsListener(ChipsListener chipsListener) {
+        mChipsListenerList.remove(chipsListener);
     }
 
     public void onChipAdded(ChipInterface chip, int size) {
@@ -248,7 +250,7 @@ public class ChipsInput extends ScrollViewMaxHeight {
     }
 
     public void onTextChanged(CharSequence text) {
-        if(mChipsListener != null) {
+        if(!mChipsListenerList.isEmpty()) {
             for(ChipsListener chipsListener: mChipsListenerList) {
                 chipsListener.onTextChanged(text);
             }
