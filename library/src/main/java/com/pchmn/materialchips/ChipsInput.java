@@ -27,6 +27,7 @@ import com.pchmn.materialchips.views.ScrollViewMaxHeight;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,6 +154,10 @@ public class ChipsInput extends ScrollViewMaxHeight {
         mChipsAdapter.addChip(chip);
     }
 
+    public void addChips(List<ChipInterface> chips) {
+        mChipsAdapter.addChips(chips);
+    }
+
     public void addChip(Object id, Drawable icon, String label, String info) {
         Chip chip = new Chip(id, icon, label, info);
         mChipsAdapter.addChip(chip);
@@ -184,6 +189,10 @@ public class ChipsInput extends ScrollViewMaxHeight {
 
     public void removeChipById(Object id) {
         mChipsAdapter.removeChipById(id);
+    }
+
+    public void removeChipByIds(Set<Object> ids) {
+        mChipsAdapter.removeChipByIds(ids);
     }
 
     public void removeChipByLabel(String label) {
