@@ -288,7 +288,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         // reset text
         mEditText.setText(null);
 
-        notifyItemRangeInserted(Math.max(mChipList.size() - filteredChips.size() - 1, 0), filteredChips.size());
+        notifyItemRangeInserted(Math.max(mChipList.size() - filteredChips.size(), 0), filteredChips.size());
     }
 
     public void addChip(ChipInterface chip) {
