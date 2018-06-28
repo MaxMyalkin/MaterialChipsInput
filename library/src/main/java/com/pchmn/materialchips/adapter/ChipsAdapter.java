@@ -27,6 +27,7 @@ import com.pchmn.materialchips.views.FilterableListView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -275,6 +276,22 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             mEditText.setFilterableListView(filterableListView);
     }
 
+    public void addChips(List<ChipInterface> chips) {
+        final List<ChipInterface> filteredChips = new ArrayList<>();
+        for(ChipInterface chip: chips) {
+            if(!listContains(mChipList, chip)) {
+                filteredChips.add(chip);
+                mChipsInput.onChipAdded(chip, mChipList.size());
+            }
+        }
+        mChipList.addAll(filteredChips);
+        // hide hint
+        mEditText.setHint(null);
+        // reset text
+        mEditText.setText(null);
+        notifyItemRangeInserted(mChipList.size() - filteredChips.size() - 1, mChipList.size() - 1);
+    }
+
     public void addChip(ChipInterface chip) {
         if(!listContains(mChipList, chip)) {
             mChipList.add(chip);
@@ -318,6 +335,23 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         for (Iterator<ChipInterface> iter = mChipList.listIterator(); iter.hasNext(); ) {
             ChipInterface chip = iter.next();
             if (chip.getId() != null && chip.getId().equals(id)) {
+                // remove chip
+                iter.remove();
+                // notify listener
+                mChipsInput.onChipRemoved(chip, mChipList.size());
+            }
+        }
+        // if 0 chip
+        if (mChipList.size() == 0)
+            mEditText.setHint(mHintLabel);
+        // refresh data
+        notifyDataSetChanged();
+    }
+
+    public void removeChipByIds(Set<Object> ids) {
+        for (Iterator<ChipInterface> iter = mChipList.listIterator(); iter.hasNext(); ) {
+            ChipInterface chip = iter.next();
+            if (chip.getId() != null && ids.contains(chip.getId())) {
                 // remove chip
                 iter.remove();
                 // notify listener
