@@ -351,6 +351,18 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void replaceAllChips(List<ChipInterface> chips) {
+        mChipList = new ArrayList<>(chips);
+        if (mChipList.size() == 0) {
+            mEditText.setHint(mHintLabel);
+        } else {
+            mEditText.setHint(null);
+        }
+        // reset text
+        mEditText.setText(null);
+        notifyDataSetChanged();
+    }
+
     public void removeChipByIds(Set<Object> ids) {
 
         boolean removed = false;
