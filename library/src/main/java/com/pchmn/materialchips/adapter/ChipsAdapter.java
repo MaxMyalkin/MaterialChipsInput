@@ -353,7 +353,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void removeChipByIds(Set<Object> ids) {
 
-        boolean removed = false
+        boolean removed = false;
 
         for (Iterator<ChipInterface> iter = mChipList.listIterator(); iter.hasNext(); ) {
             ChipInterface chip = iter.next();
