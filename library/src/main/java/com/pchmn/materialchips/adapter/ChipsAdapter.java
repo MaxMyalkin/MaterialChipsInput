@@ -275,6 +275,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void addChips(List<ChipInterface> chips) {
+
         final List<ChipInterface> filteredChips = new ArrayList<>();
         for (ChipInterface chip : chips) {
             if (!listContains(mChipList, chip)) {
@@ -282,6 +283,9 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 mChipsInput.onChipAdded(chip, mChipList.size());
             }
         }
+
+        if (filteredChips.isEmpty()) return;
+
         mChipList.addAll(filteredChips);
         // hide hint
         mEditText.setHint(null);
@@ -348,9 +352,13 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void removeChipByIds(Set<Object> ids) {
+
+        boolean removed = false
+
         for (Iterator<ChipInterface> iter = mChipList.listIterator(); iter.hasNext(); ) {
             ChipInterface chip = iter.next();
             if (chip.getId() != null && ids.contains(chip.getId())) {
+                removed = true;
                 // remove chip
                 iter.remove();
                 // notify listener
@@ -361,7 +369,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (mChipList.size() == 0)
             mEditText.setHint(mHintLabel);
         // refresh data
-        notifyDataSetChanged();
+        if (removed) notifyDataSetChanged();
     }
 
     public void removeChipByLabel(String label) {
